@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Send, Image as ImageIcon } from "lucide-react";
-import { Message, ChatSettings } from "@/types/whatsapp";
+import { ChatSettings } from "@/types/whatsapp";
 
 interface MessageFormProps {
   inputMessage: string;
@@ -42,7 +42,7 @@ export function MessageForm({
           onCheckedChange={setIsUser}
         />
         <Label htmlFor="sender-switch">
-          Sending as: {isUser ? chatSettings.userName : chatSettings.otherName}
+          Sending as: {isUser ? chatSettings.otherName : chatSettings.otherName}
         </Label>
       </div>
       <div>

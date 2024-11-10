@@ -22,12 +22,12 @@ export function ContactSettings({
         <Label htmlFor="user-name">Your Name</Label>
         <Input
           id="user-name"
-          value={chatSettings.userName}
-          onChange={(e) => onUpdateSettings({ userName: e.target.value })}
+          value={chatSettings.otherName}
+          onChange={(e) => onUpdateSettings({ otherName: e.target.value })}
         />
       </div>
       <div>
-        <Label htmlFor="other-name">Other Person's Name</Label>
+        <Label htmlFor="other-name">Other Person&apos;s Name</Label>
         <Input
           id="other-name"
           value={chatSettings.otherName}
@@ -44,7 +44,7 @@ export function ContactSettings({
         />
       </div>
       <div>
-        <Label htmlFor="other-avatar">Other Person's Avatar</Label>
+        <Label htmlFor="other-avatar">Other Person&apos;s Avatar</Label>
         <Input
           id="other-avatar"
           type="file"

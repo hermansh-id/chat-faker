@@ -1,18 +1,15 @@
 export interface Message {
   id: string;
-  type: "text" | "image";
-  content: string;
-  timestamp: string;
   sender: "user" | "other";
-  senderName: string;
-  senderAvatar: string;
+  content: string;
+  timestamp: number;
+  type: "text" | "image";
 }
 
 export interface ChatSettings {
-  userName: string;
   otherName: string;
-  userAvatar: string;
-  otherAvatar: string;
+  otherAvatar?: string;
+  otherStatus?: string;
 }
 
 export interface PhoneSettings {

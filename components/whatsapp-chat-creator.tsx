@@ -13,7 +13,7 @@ import { MessageForm } from "./whatsapp/message-form";
 import { ContactSettings } from "./whatsapp/contact-settings";
 import { PhoneSettingsForm } from "./whatsapp/phone-settings";
 import { ChatPreview } from "./whatsapp/chat-preview";
-import { Message, ChatSettings, PhoneSettings } from "@/types/whatsapp";
+import { Message } from "@/types/whatsapp";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { format } from "date-fns";
@@ -24,11 +24,7 @@ export function WhatsappChatCreator() {
   const [inputTime, setInputTime] = useState("");
   const [inputDate, setInputDate] = useState("");
   const [isUser, setIsUser] = useState(true);
-  const [userName, setUserName] = useState("You");
   const [otherName, setOtherName] = useState("John Doe");
-  const [userAvatar, setUserAvatar] = useState(
-    "/placeholder.svg?height=32&width=32"
-  );
   const [otherAvatar, setOtherAvatar] = useState(
     "/placeholder.svg?height=32&width=32"
   );
@@ -58,10 +54,8 @@ export function WhatsappChatCreator() {
         id: Date.now().toString(),
         type: "text",
         content: inputMessage.trim(),
-        timestamp: `${messageDate} ${messageTime}`,
+        timestamp: new Date(`${messageDate} ${messageTime}`).getTime(),
         sender: isUser ? "user" : "other",
-        senderName: isUser ? userName : otherName,
-        senderAvatar: isUser ? userAvatar : otherAvatar,
       };
       setMessages([...messages, newMessage]);
       setInputMessage("");
@@ -81,10 +75,8 @@ export function WhatsappChatCreator() {
           id: Date.now().toString(),
           type: "image",
           content: e.target?.result as string,
-          timestamp: `${messageDate} ${messageTime}`,
+          timestamp: new Date(`${messageDate} ${messageTime}`).getTime(),
           sender: isUser ? "user" : "other",
-          senderName: isUser ? userName : otherName,
-          senderAvatar: isUser ? userAvatar : otherAvatar,
         };
         setMessages([...messages, newMessage]);
       };
@@ -102,7 +94,7 @@ export function WhatsappChatCreator() {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         if (isUserAvatar) {
-          setUserAvatar(result);
+          setOtherAvatar(result);
         } else {
           setOtherAvatar(result);
         }
@@ -154,9 +146,7 @@ export function WhatsappChatCreator() {
                   isUser={isUser}
                   setIsUser={setIsUser}
                   chatSettings={{
-                    userName,
                     otherName,
-                    userAvatar,
                     otherAvatar,
                   }}
                   onSendMessage={handleSendMessage}
@@ -176,13 +166,10 @@ export function WhatsappChatCreator() {
               <CardContent>
                 <ContactSettings
                   chatSettings={{
-                    userName,
                     otherName,
-                    userAvatar,
                     otherAvatar,
                   }}
                   onUpdateSettings={(settings) => {
-                    if (settings.userName) setUserName(settings.userName);
                     if (settings.otherName) setOtherName(settings.otherName);
                   }}
                   onAvatarUpload={handleAvatarUpload}
@@ -223,7 +210,7 @@ export function WhatsappChatCreator() {
       <div className="w-full md:w-2/3 p-4 flex justify-center items-start">
         <ChatPreview
           messages={messages}
-          chatSettings={{ userName, otherName, userAvatar, otherAvatar }}
+          chatSettings={{ otherName, otherAvatar }}
           phoneSettings={{
             phoneTime,
             batteryLevel,

@@ -8,12 +8,10 @@ import {
   Send,
   Download,
   Camera,
-  Image,
   Mic,
   Phone,
   Video,
   MoreVertical,
-  ChevronLeft,
   ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { toPng } from "html-to-image";
 import { Roboto } from "next/font/google";
+import { ChatSettings, Message } from "@/types/whatsapp";
 
 // Define fonts
 const roboto = Roboto({
@@ -52,20 +51,6 @@ const PHONE_PRESETS = {
     height: "960px",
   },
 };
-
-interface Message {
-  id: string;
-  sender: "user" | "other";
-  content: string;
-  timestamp: number;
-  type: "text" | "image";
-}
-
-interface ChatSettings {
-  otherName: string;
-  otherAvatar?: string;
-  otherStatus?: string;
-}
 
 interface PhoneSettings {
   phoneTime: string;
